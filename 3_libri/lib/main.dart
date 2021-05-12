@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(     
+      theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
@@ -32,7 +32,7 @@ class _LibriScreenState extends State<LibriScreen> {
   Icon icona = Icon(Icons.search);
   Widget widgetRicerca = Text('Libri');
   String risultato = '';
-  List<Libro> libri = List<Libro>();
+  List<Libro> libri = [];
   @override
   void initState() {
     cercaLibri('Oceano Mare');
@@ -42,10 +42,9 @@ class _LibriScreenState extends State<LibriScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: widgetRicerca,
-        actions: [
-          IconButton(
-            icon: icona, 
+      appBar: AppBar(title: widgetRicerca, actions: [
+        IconButton(
+            icon: icona,
             onPressed: () {
               setState(() {
                 if (this.icona.icon == Icons.search) {
@@ -53,45 +52,41 @@ class _LibriScreenState extends State<LibriScreen> {
                   this.widgetRicerca = TextField(
                     textInputAction: TextInputAction.search,
                     onSubmitted: (testoRicerca) => cercaLibri(testoRicerca),
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20
-                    ),
+                    style: TextStyle(color: Colors.white, fontSize: 20),
                   );
-                }
-                else {
+                } else {
                   setState(() {
                     this.icona = Icon(Icons.search);
                     this.widgetRicerca = Text('Libri');
                   });
                 }
-
               });
             })
-        ]
-      ),
+      ]),
       body: ListView.builder(
-        itemCount: libri.length,
-        itemBuilder: ((BuildContext context, int posizione){
-          return Card(
-            elevation: 2,
-            child: ListTile(
-              onTap: () {
-                MaterialPageRoute route = MaterialPageRoute(
-                  builder: (_) => LibroScreen(libri[posizione]));
-                Navigator.push(context, route);
-              },
-              leading: Image.network(libri[posizione].immagineCopertina),
-              title: Text(libri[posizione].titolo),
-              subtitle: Text(libri[posizione].autori)
-            ),
-          );
-        })),
+          itemCount: libri.length,
+          itemBuilder: ((BuildContext context, int posizione) {
+            return Card(
+              elevation: 2,
+              child: ListTile(
+                  onTap: () {
+                    MaterialPageRoute route = MaterialPageRoute(
+                        builder: (_) => LibroScreen(libri[posizione]));
+                    Navigator.push(context, route);
+                  },
+                  leading: Image.network(libri[posizione].immagineCopertina),
+                  title: Text(libri[posizione].titolo),
+                  subtitle: Text(libri[posizione].autori)),
+            );
+          })),
     );
   }
 
   Future cercaLibri(String ricerca) async {
-    final String url = 'https://www.googleapis.com/books/v1/volumes?q=' + ricerca;
+    final String dominio = 'www.googleapis.com';
+    final String percorso = '/books/v1/volumes';
+    Map<String, dynamic> parametri = {'q': ricerca};
+    final Uri url = Uri.https(dominio, percorso, parametri);
     try {
       http.get(url).then((res) {
         final resJson = json.decode(res.body);
@@ -102,8 +97,7 @@ class _LibriScreenState extends State<LibriScreen> {
           libri = libri;
         });
       });
-    }
-    catch (errore) {
+    } catch (errore) {
       setState(() {
         risultato = '';
       });
@@ -113,4 +107,3 @@ class _LibriScreenState extends State<LibriScreen> {
     });
   }
 }
-
