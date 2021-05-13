@@ -25,7 +25,7 @@ class CalcolaCostiScreen extends StatefulWidget {
 }
 
 class _CalcolaCostiScreenState extends State<CalcolaCostiScreen> {
-  String tipoPercorso;
+  String tipoPercorso = '';
   String messaggio = '';
   final TextEditingController chilometriController = TextEditingController();
   final List<String> tipiPercorso = ['Urbano', 'Extraurbano', 'Misto'];
