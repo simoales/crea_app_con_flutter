@@ -1,10 +1,10 @@
 class Libro {
-  String id;
-  String titolo;
-  String autori;
-  String descrizione;
-  String editore;
-  String immagineCopertina;
+  late String id;
+  late String titolo;
+  late String autori;
+  late String descrizione;
+  late String editore;
+  late String immagineCopertina;
 
   Libro(this.id, this.titolo, this.autori, this.descrizione, this.editore, this.immagineCopertina);
 
