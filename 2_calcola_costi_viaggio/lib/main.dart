@@ -65,9 +65,9 @@ class _CalcolaCostiScreenState extends State<CalcolaCostiScreen> {
                 ),
               );
             }).toList(),
-            onChanged: (String nuovoValore) {
+            onChanged: (String? nuovoValore) {
               setState(() {
-                tipoPercorso = nuovoValore;
+                tipoPercorso = nuovoValore ?? 'Urbano';
               });
             },
           ),
@@ -98,7 +98,7 @@ class _CalcolaCostiScreenState extends State<CalcolaCostiScreen> {
 
   void calcolaCosto() {
     double costoLitroCarburante = 1.4;
-    double numeroChilometri = double.tryParse(chilometriController.text);
+    double numeroChilometri = double.tryParse(chilometriController.text) ?? 0;
     double kmTipoPercorso;
     double costo;
 
