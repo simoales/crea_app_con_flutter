@@ -1,5 +1,5 @@
-import 'package:capitolo_5_sembast/dati/articolo.dart';
-import 'package:capitolo_5_sembast/pagine/articolo.dart';
+import '../dati/articolo.dart';
+import './articolo.dart';
 import 'package:flutter/material.dart';
 import '../dati/articolo_db.dart';
 
