@@ -12,7 +12,7 @@ class ArticoloDb {
   ArticoloDb._internal();
 
   DatabaseFactory dbFactory = databaseFactoryIo;
-  Database _db;
+  Database? _db;
 
   factory ArticoloDb() {
     return _singleton;
@@ -25,7 +25,7 @@ class ArticoloDb {
         _db = db;
       });
     }
-    return _db;
+    return _db!;
   }
 
   Future _openDb() async {
@@ -40,21 +40,21 @@ class ArticoloDb {
     if (_db == null) {
       await init();
     }
-    return await store.add(_db, articolo.trasformaInMap());
+    return await store.add(_db!, articolo.trasformaInMap());
   }
 
   Future aggiornaArticolo(Articolo articolo) async {
     final finder = Finder(filter: Filter.byKey(articolo.id));
-    await store.update(_db, articolo.trasformaInMap(), finder: finder);
+    await store.update(_db!, articolo.trasformaInMap(), finder: finder);
   }
 
   Future eliminaArticolo(Articolo articolo) async {
     final finder = Finder(filter: Filter.byKey(articolo.id));
-    await store.delete(_db, finder: finder);
+    await store.delete(_db!, finder: finder);
   }
 
   Future eliminaDatiDb() async {
-    await store.delete(_db);
+    await store.delete(_db!);
   }
 
   Future<List<Articolo>> leggiArticoli() async {
@@ -66,7 +66,7 @@ class ArticoloDb {
       SortOrder('id'),
     ]);
 
-    final articoliSnapshot = await store.find(_db, finder: finder);
+    final articoliSnapshot = await store.find(_db!, finder: finder);
     return articoliSnapshot.map((snapshot) {
       final articolo = Articolo.daMap(snapshot.value);
       articolo.id = snapshot.key;

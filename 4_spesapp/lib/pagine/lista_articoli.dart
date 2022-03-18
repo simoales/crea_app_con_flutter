@@ -9,7 +9,7 @@ class ListaArticoli extends StatefulWidget {
 }
 
 class _ListaArticoliState extends State<ListaArticoli> {
-  ArticoloDb db;
+  late ArticoloDb db;
   @override
   void initState() {
     db = ArticoloDb();
@@ -26,9 +26,9 @@ class _ListaArticoliState extends State<ListaArticoli> {
       body: FutureBuilder(
           future: leggiArticoli(),
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-            List<Articolo> lista = snapshot.data;
+            List<Articolo> lista = snapshot.data ?? [];
             return ListView.builder(
-                itemCount: (lista == null) ? 0 : lista.length,
+                itemCount: lista.length,
                 itemBuilder: (_, index) {
                   return Dismissible(
                     key: Key(lista[index].id.toString()),
@@ -36,11 +36,11 @@ class _ListaArticoliState extends State<ListaArticoli> {
                       db.eliminaArticolo(lista[index]);
                     },
                     child: ListTile(
-                      title: Text(lista[index].nome ?? ''),
+                      title: Text(lista[index].nome),
                       subtitle: Text('Quantità: ' +
-                          lista[index].quantita ?? '' +
+                          lista[index].quantita +
                           ' - Note: ' +
-                          lista[index].note ?? ''),
+                          lista[index].note),
                       onTap: () {
                         Navigator.push(
                           context,

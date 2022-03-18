@@ -17,16 +17,16 @@ class _PaginaArticoloState extends State<PaginaArticolo> {
   final TextEditingController txtNote = TextEditingController();
   final TextEditingController txtQuantita = TextEditingController();
   final TextEditingController txtPriorita = TextEditingController();
-  ArticoloDb db;
+  late ArticoloDb db;
 
   @override
   void initState() {
     db = ArticoloDb();
 
     if (!widget.nuovo) {
-      txtNome.text = widget.articolo.nome ?? '';
-      txtNote.text = widget.articolo.note ?? '';
-      txtQuantita.text = widget.articolo.quantita ?? '';
+      txtNome.text = widget.articolo.nome ;
+      txtNote.text = widget.articolo.note ;
+      txtQuantita.text = widget.articolo.quantita ;
       txtPriorita.text = widget.articolo.priorita.toString();
     }
     super.initState();
@@ -55,7 +55,7 @@ class _PaginaArticoloState extends State<PaginaArticolo> {
             widget.articolo.nome = txtNome.text;
             widget.articolo.note = txtNote.text;
             widget.articolo.quantita = txtQuantita.text;
-            widget.articolo.priorita = int.tryParse(txtPriorita.text);
+            widget.articolo.priorita = int.tryParse(txtPriorita.text) ?? 0;
 
             if (widget.nuovo) {
               db.inserisciArticolo(widget.articolo).then((value) {
