@@ -3,50 +3,44 @@ import 'package:flutter/material.dart';
 void main() => runApp(RutApp());
 
 class RutApp extends StatelessWidget {
+  const RutApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Rut Flet',
         theme: ThemeData(primarySwatch: Colors.brown),
+        title: 'Rut Flet',
         home: Scaffold(
-            appBar: AppBar(title: Text('Gelateria da Rut Flet')),
-            body: SingleChildScrollView(
-              child: Builder(
-                builder: (BuildContext context) {
-                  return Column(
-                    children: [
-                      Container(height: 50),
-                      Text(
-                        'Il Gelato migliore del mondo!',
-                        style: TextStyle(
-                            fontSize: 24, fontWeight: FontWeight.bold),
-                      ),
-                      Container(height: 50),
-                      Image.network(
-                          'https://images.pexels.com/photos/47062/bananas-dessert-ice-cream-fruit-47062.jpeg'),
-                      Container(height: 100),
-                      ElevatedButton(
-                          child: Text(
-                            'Informazioni',
-                            style: TextStyle(color: Colors.white, fontSize: 20),
-                          ),
-                          style: ElevatedButton.styleFrom(
-                              primary: Colors.brown,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10))),
-
-                          // shape: RoundedRectangleBorder(
-                          //   borderRadius: BorderRadius.circular(10.0)),
-                          onPressed: () {
-                            SnackBar snackBar = SnackBar(
-                                content: Text('La mail di Rut è rut@flet.dev'));
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(snackBar);
-                          }),
-                    ],
-                  );
-                },
-              ),
-            )));
+            appBar: AppBar(title: const Text('Gelateria da Rut Flet')),
+            body: Builder(builder: (context) {
+              return SingleChildScrollView(
+                child: Column(children: [
+                  Container(
+                    height: 50,
+                  ),
+                  const Text('Il gelato migliore del mondo',
+                      style:
+                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                  Container(
+                    height: 50,
+                  ),
+                  Image.network('https://bit.ly/flutgelato'),
+                  Container(
+                    height: 100,
+                  ),
+                  ElevatedButton(
+                      onPressed: () {
+                        SnackBar snackBar = const SnackBar(
+                            content: Text('La mail di Rut è rut@flet.dev'));
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      },
+                      child: const Text('Informazioni',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                          )))
+                ]),
+              );
+            })));
   }
 }
