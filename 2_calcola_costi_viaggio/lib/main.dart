@@ -12,7 +12,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Calcola Costi Viaggio',
       theme: ThemeData(
-        primarySwatch: Colors.orange,
+        colorScheme: const ColorScheme.light()
+            .copyWith(primary: Colors.orange, surface: Colors.orange),
       ),
       home: CalcolaCostiScreen(),
     );
